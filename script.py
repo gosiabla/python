@@ -27,7 +27,7 @@ with open('nazwy_plikow_nanopore', 'r') as nanopore:
             print(f"{file_name} Średnia dlugosc odczytu: {mean(lengths):.2f}")
             med = median(lengths)
             print(f"{file_name} Mediana dlugosci odczytu: {med:.2f}")
-
+print(f"ilosc nugleotydow nanopore: {totals}")
 with open('nazwy_plikow_razem', 'r') as pliki_razem:
     for file_name in pliki_razem:
         file_name = file_name.strip()
