@@ -23,10 +23,9 @@ with open('nazwy_plikow_nanopore', 'r') as nanopore:
                     totals += dlugosc_odczytu
                     lengths.append(dlugosc_odczytu)
                 prev = line
-        if lengths:
-            print(f"{file_name} Średnia dlugosc odczytu: {mean(lengths):.2f}")
-            med = median(lengths)
-            print(f"{file_name} Mediana dlugosci odczytu: {med:.2f}")
+        print(f"{file_name} Średnia dlugosc odczytu: {mean(lengths):.2f}")
+        med = median(lengths)
+        print(f"{file_name} Mediana dlugosci odczytu: {med:.2f}")
 print(f"ilosc nugleotydow nanopore: {totals}")
 with open('nazwy_plikow_razem', 'r') as pliki_razem:
     for file_name in pliki_razem:
@@ -45,9 +44,8 @@ with open('nazwy_plikow_razem', 'r') as pliki_razem:
                     gc = ((g + c) / total) * 100 if total > 0 else 0
                     gc_content.append(gc)
                 prev = line
-        if gc_content:
-            gc_mean_content = mean(gc_content)
-            print(f"{file_name} Średnia GC: {gc_mean_content:.2f}%")
+        gc_mean_content = mean(gc_content)
+        print(f"{file_name} Średnia GC: {gc_mean_content:.2f}%")
 
         plt.hist(lengths, bins=50, edgecolor='black')
         plt.title("Rozkład długości odczytów FASTQ")
