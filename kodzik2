@@ -1,0 +1,37 @@
+import os
+import pandas as pd
+import statistics
+
+with open('sciezki.txt', 'r') as f:
+    for i in f:
+        file_name = i.strip()
+
+        columns = ["Sequence Id","Type","Start","Stop","Strand",
+                   "Locus Tag","Gene","Product","DbXrefs"]
+
+        light = pd.read_csv(file_name, sep='\t', comment='#', names=columns)
+
+        nieznana_funkcja = 0
+        znana_funkcja = 0
+
+        for prod in light['Product']:
+            if prod == 'hypothetical protein':
+                nieznana_funkcja += 1
+            else:
+                znana_funkcja += 1
+
+        x = os.popen(f"grep -c 'Uncharacterized' {file_name}").read().strip()
+        x = int(x)
+
+        znana_funkcja = znana_funkcja - x
+        nieznana_funkcja = nieznana_funkcja + x
+
+        light['Gene_length'] = light['Stop'] - light['Start'] + 1
+        mediana = light['Gene_length'].median()
+
+        print(
+            f'nazwa_pliku: {file_name} '
+            f'nieznana: {nieznana_funkcja} '
+            f'znana: {znana_funkcja} '
+            f'mediana: {mediana}'
+        )
